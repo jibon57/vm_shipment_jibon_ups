@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmshipment" method="upgrade">
+    <name>VM Shipment - Jibon UPS</name>
+    <creationDate>July 05 2015</creationDate>
+    <author>Jibon Lawrence Costa</author>
+    <authorUrl>http://extensions.hoicoimasti.com/</authorUrl>
+    <copyright>Copyright (C) 2004-2015 hoicoimasti.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>3.0.9</version>
+    <description>VMSHIPMENT_JIBON_UPS_PLUGIN_DESC</description>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_vmshipment_jibon_ups.ini</language>
+    </languages>
+    <files>
+        <filename plugin="jibon_ups">jibon_ups.php</filename>
+        <folder>language</folder>
+		<folder>tmpl</folder>
+		<folder>ups</folder>
+		<filename>index.html</filename>
+    </files>
+
+    <vmconfig>
+        <fields name="params">
+			<fieldset name="Account Information" addfieldpath="/plugins/vmshipment/jibon_ups/ups/fields" >
+                <field name="api" type="text" label="API/Access Number" description="API/Access Number"/>
+				<field name="username" type="text" label="UPS Username" description="UPS Username"/>
+				<field name="password" type="password" label="UPS Password" description="UPS Password"/>
+				<field name="mood" type="radio" default="1"
+                               label="UPS Mood"
+                               description="UPS in Test or Production Mood">
+                            <option value="0">Production</option>
+                            <option value="1">Testing</option>
+                </field>
+				<field name="pickup" type="list" default="01"
+                               label="UPS Pickup type"
+                               description="UPS Pickup type">
+                            <option value="01">Daily Pickup</option>
+                            <option value="03">Customer Counter</option>
+							<option value="06">One Time Pickup</option>
+                            <option value="07">On Call Air</option>
+							<option value="11">Suggested Retail Rates</option>
+                            <option value="19">Letter Center</option>
+							<option value="20">Air Service Center</option>
+                </field>
+				<field name="package_type" type="list" default="02"
+                               label="UPS Package type"
+                               description="UPS Package type">
+                            <option value="00">Unknown</option>
+                            <option value="01">UPS Letter</option>
+							<option value="02">Package/Customer Supplied</option>
+                            <option value="03">Tube</option>
+							<option value="24">25 KG Box</option>
+                            <option value="25">10 KG Box</option>
+							<option value="30">Pallet</option>
+							<option value="2a">Small Express Box</option>
+                            <option value="2b">Medium Express Box</option>
+							<option value="2c">Large Express Box</option>
+                </field>
+				<field name="service_name" multiple="multiple" type="getservice" label="UPS Package type" description="UPS Package type"> </field>
+            </fieldset>
+            <fieldset name="template">
+                <field name="shipment_logos" type="vmfiles" multiple="true" directory="/images/stories/virtuemart/shipment"
+                       hide_none="1" label="VMSHIPMENT_JIBON_UPS_LOGOS"
+                       size="40"
+                       description="VMSHIPMENT_JIBON_UPS_LOGOS_DESC"/>
+            </fieldset>
+            <fieldset name="restrictions">
+                <field name="show_on_pdetails" type="radio" scope="com_virtuemart" default="1"
+                               label="VMSHIPMENT_JIBON_UPS_SHOW_ON_PRDETAILS"
+                               description="VMSHIPMENT_JIBON_UPS_SHOW_ON_PRDETAILS_TIP">
+                            <option value="0">COM_VIRTUEMART_NO</option>
+                            <option value="1">COM_VIRTUEMART_YES</option>
+                </field>
+                <field name="countries" type="vmcountries" multiple="true" scope="com_virtuemart" default=""
+                       label="VMSHIPMENT_JIBON_UPS_COUNTRIES" description="VMSHIPMENT_JIBON_UPS_COUNTRIES_DESC"/>
+                <field name="zip_start" type="text" size="10" default="" label="VMSHIPMENT_JIBON_UPS_ZIP_START"
+                       description="VMSHIPMENT_JIBON_UPS_ZIP_START_DESC"/>
+                <field name="zip_stop" type="text" size="10" default="" label="VMSHIPMENT_JIBON_UPS_ZIP_STOP"
+                       description="VMSHIPMENT_JIBON_UPS_ZIP_STOP_DESC"/>
+                <field name="weight_start" type="text" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_WEIGHT_START"
+                       description="VMSHIPMENT_JIBON_UPS_WEIGHT_START_DESC"/>
+                <field name="weight_stop" type="text" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_WEIGHT_STOP"
+                       description="VMSHIPMENT_JIBON_UPS_WEIGHT_STOP_DESC"/>
+                <field name="weight_unit" type="vmweightunit" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_WEIGHT_UNIT"
+                       description="VMSHIPMENT_JIBON_UPS_WEIGHT_UNIT_DESC"/>
+                <field name="nbproducts_start" type="text" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_NBPRODUCTS_START"
+                       description="VMSHIPMENT_JIBON_UPS_NBPRODUCTS_START_DESC"/>
+                <field name="nbproducts_stop" type="text" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_NBPRODUCTS_STOP"
+                       description="VMSHIPMENT_JIBON_UPS_NBPRODUCTS_STOP_DESC"/>
+                <field name="orderamount_start" type="text" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_ORDERAMOUNT_START"
+                       description="VMSHIPMENT_JIBON_UPS_ORDERAMOUNT_START_DESC"/>
+                <field name="orderamount_stop" type="text" size="10" default=""
+                       label="VMSHIPMENT_JIBON_UPS_ORDERAMOUNT_STOP"
+                       description="VMSHIPMENT_JIBON_UPS_ORDERAMOUNT_STOP_DESC"/>
+            </fieldset>
+            <fieldset name="fee">
+                <field name="package_fee" type="text" label="VMSHIPMENT_JIBON_UPS_PACKAGE_FEE"
+                       description="VMSHIPMENT_JIBON_UPS_PACKAGE_FEE_DESC"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="VMSHIPMENT_JIBON_UPS_TAX"
+                       description="VMSHIPMENT_JIBON_UPS_TAX_DESC" default="0"/>
+                <field name="free_shipment" type="text" label="VMSHIPMENT_JIBON_UPS_FREE_SHIPPING_AMOUNT"
+                       description="VMSHIPMENT_JIBON_UPS_FREE_SHIPPING_AMOUNT_DESC" default=""/>
+            </fieldset>
+        </fields>
+    </vmconfig>
+</extension>
